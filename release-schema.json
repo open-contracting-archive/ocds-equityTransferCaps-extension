@@ -1,0 +1,97 @@
+{
+  "definitions": {
+    "equityTransferCap": {
+      "type": "object",
+      "title": "Equity Transfer Cap",
+      "description": "Certain contracts provide for caps on equity transfer in different stages of the contract, especially during the construction stage and for a few years thereafter. This block can be used to describe the amount and duration of such caps.",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "title": "Equity transfer cap ID",
+          "description": "A local identifier for this equity transfer cap, unique within this block. This field is used to keep track of multiple revisions of a equity transfer cap through the compilation from release to record mechanism.",
+          "type": [
+            "string",
+            "integer"
+          ],
+          "mergeStrategy": "overwrite"
+        },
+        "title": {
+          "title": "Equity transfer cap title",
+          "description": "The title of the equity transfer cap",
+          "type": [
+            "string",
+            "null"
+          ],
+          "mergeStrategy": "ocdsVersion"
+        },
+        "description": {
+          "title": "Equity transfer cap description",
+          "description": "A description of the equity transfer cap. This field can be used to describe additional properties of the equity transfer cap besides the amount and duration of the cap.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "mergeStrategy": "ocdsVersion"
+        },
+        "amount": {
+          "title": "Equity transfer cap amount",
+          "description": "The amount of the equity transfer cap as a percentage of the total equity in the project company, expressed as a value between 0 and 1",
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "mergeStrategy": "ocdsVersion"
+        },
+        "milestone": {
+          "$ref": "#/definitions/milestoneReference"
+        }
+      }
+    },
+    "milestoneReference": {
+      "type": "object",
+      "title": "Milestone Reference",
+      "description": "A block used to reference a milestone, including the ID and title of the milestone being referenced.",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "title": "Milestone ID",
+          "description": "The ID of the milestone being referenced, this must match the ID of a milestone described elsewhere in a release about this contracting process.",
+          "type": "string",
+          "mergeStrategy": "ocdsVersion"
+        },
+        "title": {
+          "title": "Milestone title",
+          "description": "The title of the milestone being referenced, this must match the title of a milestone described elsewhere in a release about this contracting process.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "mergeStrategy": "ocdsVersion"
+        }
+      }
+    },
+    "Contract": {
+      "properties": {
+        "equityTransferCaps": {
+          "title": "Equity transfer caps",
+          "description": "All equity transfer caps defined in the contract.",
+          "type": "array",
+          "mergeStrategy": "arrayMergeById",
+          "mergeOptions": {
+            "idRef": "id"
+          },
+          "items": {
+            "$ref": "#/definitions/equityTransferCap"
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

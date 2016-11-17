@@ -1,0 +1,165 @@
+{
+  "definitions": {
+    "equityTransferCap": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "title": {
+          "$ref": "#/definitions/StringNullVersioned"
+        },
+        "description": {
+          "$ref": "#/definitions/StringNullVersioned"
+        },
+        "amount": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "releaseDate": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "releaseID": {
+                "type": "string"
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1
+              },
+              "releaseTag": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "milestone": {
+          "$ref": "#/definitions/milestoneReference"
+        }
+      }
+    },
+    "milestoneReference": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "releaseDate": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "releaseID": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "releaseTag": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "title": {
+          "$ref": "#/definitions/StringNullVersioned"
+        }
+      }
+    },
+    "equityTransferCapUnversioned": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "milestone": {
+          "$ref": "#/definitions/milestoneReferenceUnversioned"
+        }
+      }
+    },
+    "milestoneReferenceUnversioned": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Contract": {
+      "properties": {
+        "equityTransferCaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/equityTransferCap"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "ContractUnversioned": {
+      "properties": {
+        "equityTransferCaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/equityTransferCapUnversioned"
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}
